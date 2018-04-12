@@ -1,0 +1,68 @@
+.blueBtn,.redBtn,.greenBtn{
+    width: 60px;
+    height: 20px;
+    line-height: 20px;
+    display: block;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.blueBtn,.redBtn a{
+
+    color: white;
+}
+.blueBtn{
+    background-color: #2d80ed;
+    color: white;
+    text-decoration: none;
+    float: left;
+}
+.redBtn{
+    background-color: #f52e0c;
+    text-decoration: none;
+    float: right;
+}
+.greenBtn{
+    background-color: #00f51f;
+    text-decoration: none;
+
+}
+.btnbox{
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px 10px 30px 10px;
+}
+
+#editForm table tr:first-child{
+}
+.noticeTh{
+    text-align: center;width: 100px;padding-top: 15px;
+}
+.noticeImg{
+    width: 34px;height: 34px;
+    margin-top: -5px;
+}
+.noticeTh p{
+    line-height: 36px;
+    height: 36px;
+}
+.noticeTitle{
+height: 20px;padding: 10px;margin-top: -10px ;
+}
+#noticeCon,#noticeTitle{
+    line-height: 20px;
+}
+#noticeTitle{
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+}
+#noticeCon{
+    text-indent:2em;
+    font: 16px '华文中宋';
+}
+
+
+
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.imust.ys.scom.student.domain.StudyScom" table="scom_study"
+		catalog="scom">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="classname" />
+		<property name="sno" />
+		<property name="name" />
+		<property name="grade" type="java.lang.Double" />
+		<property name="computer"/>
+		<property name="english" type="java.lang.Double" />
+		<property name="amount" type="java.lang.Double" />
+		<property name="nopass" />
+		<property name="principle" />
+		<property name="rank" />
+		<property name="majorrank" />
+
+		<many-to-one name="term" class="cn.imust.ys.scom.student.domain.Term"
+			fetch="select">
+			<column name="term_id" />
+		</many-to-one>
+		<many-to-one name="stuClass" class="cn.imust.ys.scom.student.domain.StuClass"
+			fetch="select">
+			<column name="class_id" />
+		</many-to-one>
+		<many-to-one name="gyear" class="cn.imust.ys.scom.student.domain.Gyear">
+			<column name="gyear_id"></column>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

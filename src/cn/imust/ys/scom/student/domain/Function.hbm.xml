@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.imust.ys.scom.student.domain.Function" table="auth_function">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" length="32" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="function" class="cn.imust.ys.scom.student.domain.Function" fetch="select">
+            <column name="pid" length="32" />
+        </many-to-one>
+        <property name="name" type="java.lang.String">
+            <column name="name" />
+        </property>
+        <property name="page" type="java.lang.String">
+            <column name="page" />
+        </property>
+        <property name="generatemenu" type="java.lang.String">
+            <column name="generatemenu" />
+        </property>
+        <set name="functions" inverse="true">
+            <key>
+                <column name="pid" length="32" />
+            </key>
+            <one-to-many class="cn.imust.ys.scom.student.domain.Function" />
+        </set>
+        <set name="roles" inverse="true" table="role_function">
+            <key>
+                <column name="function_id" length="32" not-null="true" />
+            </key>
+            <many-to-many entity-name="cn.imust.ys.scom.student.domain.Role">
+                <column name="role_id" length="32" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

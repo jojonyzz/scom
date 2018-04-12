@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.custom.i18n.resources" value="message"></constant>
+	<package name="scom" extends="struts-default" namespace="/">
+
+		<interceptors>
+			<!-- 注册一个拦截器 -->
+			<interceptor name="LoginInterceptor"
+				class="cn.imust.ys.scom.web.interceptor.LoginInterceptor">
+				<param name="excludeMethods">login</param>
+			</interceptor>
+			<!-- 自定义拦截器栈 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="LoginInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<!-- 重新配置默认拦截器栈 -->
+		<default-interceptor-ref name="myStack" />
+
+		<global-results>
+			<result name="login">/login.jsp</result>
+			<result name="unauthorizedUrl">/unauthorizedUrl.jsp</result>
+		</global-results>
+		<!-- 全局异常捕获 -->
+		<global-exception-mappings>
+			<exception-mapping result="unauthorizedUrl"
+				exception="org.apache.shiro.authz.AuthorizationException"></exception-mapping>
+		</global-exception-mappings>
+		<action name="page_*_*">
+			<result type="dispatcher">/WEB-INF/pages/{1}/{2}.jsp</result>
+		</action>
+
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="index" type="redirect">/index.jsp</result>
+			<result name="list">/WEB-INF/pages/admin/studentlist.jsp</result>
+		</action>
+
+		<action name="student_*" class="studentAction" method="{1}">
+			<result name="scomlist">/WEB-INF/pages/base/scomlist.jsp</result>
+		</action>
+
+		<action name="term_*" class="termAction" method="{1}">
+
+		</action>
+		<action name="collengtest_*" class="collengTestAction" method="{1}">
+			<result name="list">/WEB-INF/pages/base/collectest.jsp</result>
+		</action>
+		<action name="rankList_*" class="rankListAction" method="{1}">
+		</action>
+
+		<action name="academy_*" class="academyAction" method="{1}">
+
+		</action>
+		<action name="major_*" class="majorAction" method="{1}">
+
+		</action>
+		<action name="gyear_*" class="gyearAction" method="{1}">
+		</action>
+
+		<action name="society_*" class="societyAction" method="{1}">
+
+		</action>
+		<action name="dept_*" class="deptAction" method="{1}">
+		</action>
+		<action name="stuclass_*" class="stuClassAction" method="{1}">
+		</action>
+		<action name="function_*" class="functionAction" method="{1}">
+			<result name="list">/WEB-INF/pages/admin/function.jsp</result>
+		</action>
+		<action name="role_*" class="roleAction" method="{1}">
+			<result name="list">/WEB-INF/pages/admin/role.jsp</result>
+			<result name="init">/WEB-INF/pages/admin/updatestudentrole.jsp</result>
+		</action>
+		
+		<!-- struts 文件下载 -->
+		<action name="download_*" class="strutsDownload" method="{1}">
+			<result name="success" type="stream">
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<action name="bug_*" class="backBug" method="{1}">
+			
+		</action>
+		<action name="gradeRecord_*" class="gradeRecordAction" method="{1}">
+		
+		</action>
+		<action name="grade_*" class="gradeAction" method="{1}">
+			<result name="import">/WEB-INF/pages/base/studygrade.jsp</result>
+		</action>
+		
+		<action name="notice_*" class="noticeAction" method="{1}">
+			<result name="list">/WEB-INF/pages/admin/notice.jsp</result>
+		</action>
+		<action name="principle_*" class="principleAction" method="{1}">
+			<result name="list">/WEB-INF/pages/base/principle.jsp</result>
+		</action>
+
+	</package>
+</struts>

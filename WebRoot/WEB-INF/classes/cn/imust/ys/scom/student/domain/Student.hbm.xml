@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.imust.ys.scom.student.domain.Student" table="detail_stu"
+		catalog="scom">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="dept" class="cn.imust.ys.scom.student.domain.Dept"
+			fetch="select">
+			<column name="dept_id" />
+		</many-to-one>
+		<many-to-one name="stuClass" lazy="false" class="cn.imust.ys.scom.student.domain.StuClass"
+			fetch="select">
+			<column name="class_id" />
+		</many-to-one>
+		<many-to-one name="techno" class="cn.imust.ys.scom.student.domain.Techno"
+			fetch="select">
+			<column name="techno_id" />
+		</many-to-one>
+		<property name="qq" type="java.lang.String">
+			<column name="qq" length="15" />
+		</property>
+
+		<property name="name" type="java.lang.String">
+			<column name="name" length="100" />
+		</property>
+
+		<property name="sno" type="java.lang.String">
+			<column name="sno" length="100" />
+		</property>
+		<property name="weixin" type="java.lang.String">
+			<column name="weixin" length="20" />
+		</property>
+		<property name="email" type="java.lang.String">
+			<column name="email" length="50" />
+		</property>
+		<property name="tel" type="java.lang.String">
+			<column name="tel" length="11" />
+		</property>
+		<set name="societies" inverse="true">
+			<key>
+				<column name="dept_id" />
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.Society" />
+		</set>
+		<set name="collengTests" lazy="false">
+			<key>
+				<column name="stu_id"/>
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.CollengTest" />
+		</set>
+		<set name="users" inverse="true">
+			<key>
+				<column name="stu_id" />
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.User" />
+		</set>
+		<set name="technos" inverse="true">
+			<key>
+				<column name="stu_id"/>
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.Techno" />
+		</set>
+		<set name="grades" inverse="true" lazy="false" batch-size="30">
+			<key>
+				<column name="stu_id" />
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.Grade" />
+		</set>
+		<set name="principles">
+			<key>
+				<column name="stu_id"></column>
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.BPrinciple"/>
+		</set>
+	</class>
+</hibernate-mapping>

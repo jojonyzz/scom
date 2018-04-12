@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.imust.ys.scom.student.domain.Course" table="course">
+		<id name="id">
+			<column name="id" />
+			<generator class="native"></generator>
+		</id>
+		<many-to-one name="stuClass" class="cn.imust.ys.scom.student.domain.StuClass">
+			<column name="class_id"></column>
+		</many-to-one>
+		<many-to-one name="term" class="cn.imust.ys.scom.student.domain.Term">
+			<column name="term_id"></column>
+		</many-to-one>
+		<property name="cno" />
+		<property name="cname" />
+		<property name="credit" type="java.lang.Double" />
+		<set name="grades" batch-size="50">
+			<key>
+				<column name="course_id"></column>
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.Grade"/>
+		</set>
+	</class>
+</hibernate-mapping>

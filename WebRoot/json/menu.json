@@ -1,0 +1,16 @@
+[
+		{ "id":"11", "pId":"0", "name":"基本信息管理"},
+		{ "id":"111", "pId":"11", "name":"学生信息管理",  "page":"page_base_studentlist.action"},
+		{ "id":"113", "pId":"11", "name":"等级考试",  "page":"page_base_upload2.action"},
+		{ "id":"114", "pId":"11", "name":"学院",  "page":"page_base_academy.action"},
+		{ "id":"116", "pId":"11", "name":"班级",  "page":"page_base_class.action"},
+		{ "id":"117", "pId":"11", "name":"部门",  "page":"page_base_dept.action"},
+		{ "id":"118", "pId":"11", "name":"年级管理",  "page":"page_base_gyear.action"},
+		{ "id":"119", "pId":"11", "name":"专业",  "page":"page_base_major.action"},
+		{ "id":"122", "pId":"11", "name":"社会成绩",  "page":"page_base_societyStu.action"},
+		{ "id":"123", "pId":"11", "name":"老师",  "page":"page_base_teacher.action"},
+		{ "id":"125", "pId":"11", "name":"学期",  "page":"page_base_xueqi.action"},
+		{ "id":"126", "pId":"11", "name":"权限",  "page":"page_base_auth.action"},
+		{ "id":"127", "pId":"11", "name":"成绩管理",  "page":"page_base_grade.action"},
+		{ "id":"128", "pId":"11", "name":"校订测评科目",  "page":"page_base_choose.action"}
+]

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.imust.ys.scom.student.domain.Gyear" table="gyear_stu" catalog="scom">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="major" lazy="false" class="cn.imust.ys.scom.student.domain.Major" fetch="select">
+            <column name="major_id"/>
+        </many-to-one>
+        <property name="name" type="java.lang.String">
+            <column name="name" length="100" />
+        </property>
+        <set name="stuClasses" inverse="true">
+            <key>
+                <column name="gyear_id" />
+            </key>
+            <one-to-many class="cn.imust.ys.scom.student.domain.StuClass" />
+        </set>
+    </class>
+</hibernate-mapping>

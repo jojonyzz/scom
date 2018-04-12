@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.imust.ys.scom.student.domain.Term" table="term_imust"
+		catalog="scom">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="native" />
+		</id>
+		<property name="year" type="java.lang.String">
+			<column name="year" length="50" />
+		</property>
+		<property name="termname" type="java.lang.String">
+			<column name="termname" length="50" />
+		</property>
+		<set name="collengTests" inverse="true">
+			<key>
+				<column name="ter_id" />
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.CollengTest" />
+		</set>
+		<set name="scholarships" inverse="true">
+			<key>
+				<column name="sch_id" />
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.Scholarship" />
+		</set>
+		<set name="grades">
+			<key>
+				<column name="term_id"></column>
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.Grade"/>
+		</set>
+		
+		<set name="courses" inverse="true">
+        	<key>
+        		<column name="term_id"></column>
+        	</key>
+        	<one-to-many class="cn.imust.ys.scom.student.domain.Course"/>
+        </set>
+	</class>
+</hibernate-mapping>

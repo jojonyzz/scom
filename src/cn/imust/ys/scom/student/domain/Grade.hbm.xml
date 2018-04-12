@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.imust.ys.scom.student.domain.Grade" table="grade">
+		<id name="id">
+			<column name="id" />
+			<generator class="native"></generator>
+		</id>
+		<property name="score" type="java.lang.Double"/>
+		<many-to-one name="term" class="cn.imust.ys.scom.student.domain.Term" column="term_id"></many-to-one>
+		<many-to-one name="student" lazy="false" class="cn.imust.ys.scom.student.domain.Student"
+			column="stu_id"></many-to-one>
+		<many-to-one name="course" class="cn.imust.ys.scom.student.domain.Course"
+			column="course_id" lazy="false"></many-to-one>
+	</class>
+</hibernate-mapping>

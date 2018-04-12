@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.imust.ys.scom.student.domain.User" table="user_imust"
+		catalog="scom">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="student" class="cn.imust.ys.scom.student.domain.Student" lazy="false"
+			fetch="select">
+			<column name="stu_id" unique="true"/>
+		</many-to-one>
+		<many-to-one name="teacher" class="cn.imust.ys.scom.student.domain.Teacher" lazy="false"
+			fetch="select">
+			<column name="tea_id" unique="true"/>
+		</many-to-one>
+		<property name="account" type="java.lang.String">
+			<column name="account" length="20" />
+		</property>
+		<property name="pwd" type="java.lang.String">
+			<column name="pwd" length="50" />
+		</property>
+		<set name="roles" table="user_role" catalog="scom">
+			<key>
+				<column name="user_id" not-null="true" />
+			</key>
+			<many-to-many entity-name="cn.imust.ys.scom.student.domain.Role">
+				<column name="role_id" not-null="true" />
+			</many-to-many>
+		</set>
+	</class>
+
+	<sql-query name="editpwd">
+		update user_imust set pwd = ? where id = ?
+	</sql-query>
+</hibernate-mapping>

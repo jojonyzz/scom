@@ -1,0 +1,120 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<!-- 导入jquery核心类库 -->
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
+<!-- 导入easyui类库 -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/js/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/js/easyui/ext/portal.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/css/default.css">	
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/easyui/ext/jquery.portal.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/easyui/ext/jquery.cookie.js"></script>
+<script
+	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
+	type="text/javascript"></script>
+<!-- 导入ztree类库 -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/js/ztree/zTreeStyle.css"
+	type="text/css" />
+<script
+	src="${pageContext.request.contextPath }/js/ztree/jquery.ztree.all-3.5.js"
+	type="text/javascript"></script>
+<script type="text/javascript" src="js/roleMenuSet.js"></script>	
+<script type="text/javascript">
+	$(function(){
+		// 数据表格属性
+		$("#grid").datagrid({
+			toolbar : [
+				{
+					id : 'add',
+					text : '添加角色',
+					iconCls : 'icon-add',
+					handler : function(){
+						location.href='${pageContext.request.contextPath}/page_admin_role_add.action';
+					}
+				}           
+			],
+			url : '${pageContext.request.contextPath}/role_queryPage.action',
+			columns : [[
+				{
+					field : 'id',
+					title : '编号',
+					width : 200
+				},
+				{
+					field : 'name',
+					title : '名称',
+					width : 200
+				}
+			]],
+			onDblClickRow : doDblClickRow
+		});
+	    // 编辑角色窗口
+		$('#editRoleWindow').window({
+	        title: '修改角色',
+	        width: 400,
+	        modal: true,
+	        shadow: true,
+	        closed: true,
+	        height: 400,
+	        resizable:false
+	    });
+	});
+	function doDblClickRow(rowIndex, rowData){
+		$('#editRoleWindow').window("open");
+		$('#editRoleWindow').form("load",rowData);
+	}
+</script>	
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'center'">
+		<table id="grid"></table>
+	</div>
+	
+		<div class="easyui-window" title="对收派员进行添加或者修改" id="editRoleWindow"
+		collapsible="false" minimizable="false" maximizable="false"
+		style="top:20px;left:200px">
+		<div region="north" style="height:31px;overflow:hidden;" split="false"
+			border="false">
+			<div class="datagrid-toolbar">
+				<a id="edit" icon="icon-edit" href="#" class="easyui-linkbutton"
+					plain="true">保存</a>
+				<script type="text/javascript">
+					$(function(){
+						$("#edit").click(function(){
+							var v = $("#editRoleForm").form("validate");
+							if(v){
+								$("#editRoleForm").submit();
+							}
+						});
+					});
+				</script>
+			</div>
+		</div>
+
+		<div region="center" style="overflow:auto;padding:5px;" border="false">
+			<form id="editRoleForm" method="post"
+				action="${pageContext.request.contextPath}/staff_edit.action">
+				<input type="hidden" name="id" />
+				<table class="table-edit" width="80%" align="center">
+
+				</table>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

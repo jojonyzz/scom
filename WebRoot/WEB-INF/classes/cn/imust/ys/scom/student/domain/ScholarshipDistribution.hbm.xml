@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.imust.ys.scom.student.domain.ScholarshipDistribution" table="s_ssdistribution" catalog="scom">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="term" class="cn.imust.ys.scom.student.domain.Term">
+            <column name="term_id"/>
+        </many-to-one>
+        <many-to-one name="gyear" class="cn.imust.ys.scom.student.domain.Gyear" >
+            <column name="gyear_id"/>
+        </many-to-one>
+        <property name="fnum"/>
+        <property name="snum"/>
+        <property name="tnum"/>
+    </class>
+</hibernate-mapping>

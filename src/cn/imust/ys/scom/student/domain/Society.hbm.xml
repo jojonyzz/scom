@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.imust.ys.scom.student.domain.Society" table="society_stu"
+		catalog="scom">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="native" />
+		</id>
+		<many-to-one name="dept" class="cn.imust.ys.scom.student.domain.Dept" fetch="select">
+			<column name="dept_id" />
+		</many-to-one>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="100" />
+		</property>
+		<many-to-one name="term" class="cn.imust.ys.scom.student.domain.Term"
+			fetch="select">
+			<column name="ter_id" />
+		</many-to-one>
+		<property name="score" type="java.lang.String">
+			<column name="score" length="100" />
+		</property>
+		<property name="reason" type="java.lang.String">
+			<column name="reason" length="100" />
+		</property>
+		<set name="students" inverse="true">
+			<key>
+				<column name="soc_id" />
+			</key>
+			<one-to-many class="cn.imust.ys.scom.student.domain.Student" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 加载 jdbc 配置文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<!-- 数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${driverClass}" />
+		<property name="jdbcUrl" value="${jdbcUrl}" />
+		<property name="user" value="${user}" />
+		<property name="password" value="${password}" />
+	</bean>
+
+	<!-- spring 整合 hibernate 的 工厂 bean -->
+	<bean name="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<!-- 注入映射文件 -->
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:cn/imust/ys/scom</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 事务管理 -->
+	<bean name="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 组件扫描 -->
+	<context:component-scan base-package="cn.imust.ys.scom" />
+
+	<!-- 引入注解解析器 -->
+	<context:annotation-config />
+
+	<!-- 事务注解 -->
+	<tx:annotation-driven />
+	
+	<!-- 权限控制 -->
+	<!-- 配置一个工厂bean，用于创建shiro框架用到过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 注入安全管理器 -->
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- 注入当前系统的登录页面 -->
+		<property name="loginUrl" value="/login.jsp"/>
+		<!-- 注入成功页面 -->
+		<property name="successUrl" value="/index.jsp"/>
+		<!-- 注入权限不足提示页面 -->
+		<property name="unauthorizedUrl" value="/unauthorizedUrl.jsp"/>
+		<!-- 注入URL拦截规则 -->
+		<property name="filterChainDefinitions">
+			<value>
+				<!-- 资源配置 -->
+				/css/** = anon
+				/images/** = anon
+				/js/** = anon
+				/login.jsp* = anon
+				/validatecode.jsp* = anon
+				/user_login.action = anon
+				
+				<!-- 配置学生管理权限 -->
+				/page_base_choose.action = perms["导出班级测评数据"]
+				/page_base_collectest.action = perms["等级考试成绩"]
+				/page_base_studygrade.action = perms["学习成绩"]
+				/page_base_choose.action = perms["导出综合测评数据"]
+				/page_base_academy.action = perms["学院"]
+				/page_base_class.action	= perms["班级"]
+				/page_base_gyear.action	= perms["年级"]
+				/page_base_major.action	= perms["专业"]
+				/page_base_term.action = perms["学期"]
+				/page_base_gyearScholarship.action = perms["导出奖学金数据"]
+				/page_base_querygrade.action = perms["查询个人成绩"]
+				/page_base_principle.action = perms["违纪信息"]
+				/page_admin_studentlist.action = perms["学生信息管理"]
+				/page_admin_function.action = perms["权限管理"]
+				/page_admin_role.action = perms["角色管理"]
+				/page_admin_notice.action = perms["公告管理"]
+				/page_admin_updatestudentrole.action = perms["学生权限修改"]
+				
+				/* = authc
+			</value>
+		</property>
+	</bean>
+	<!-- 注册自定义realm -->
+	<bean id="scomRealm" class="cn.imust.ys.scom.base.shiro.ScomRealm"></bean>
+	<!-- 注册安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 注入上面的realm -->
+		<property name="realm" ref="scomRealm"/>
+		<!-- 注入缓存管理器 -->
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean>
+	
+	<!-- 注册缓存管理器 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<!-- 注入ehcache配置文件 -->
+		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+	</bean>
+	
+	<!-- 开启shiro注解 -->
+	<!-- 自动代理 -->
+	<bean id="defaultAdvisorAutoProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<!-- 强制使用cglib为Action创建代理对象 -->
+		<property name="proxyTargetClass" value="true"></property>
+	</bean>
+
+</beans>

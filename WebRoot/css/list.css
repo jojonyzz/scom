@@ -1,0 +1,43 @@
+
+#table3 {
+    width: 100%;
+    border: 1px solid #CCCCCC;
+    padding: 5px;
+    text-align: center;
+}
+#table3 thead tr{
+    background: linear-gradient(to bottom, #F9F9F9 0, #efefef 100%);
+}
+#table3 thead tr th:first-child {
+    border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+}
+
+#table3 thead tr th {
+    padding: 10px 0;
+    border-color: #CCCCCC;
+    border-style: dotted;
+    border-width: 1px 1px 1px 0;
+}
+
+#table3 tbody tr:nth-child(2n-1) {
+    background-color: white;
+}
+#table3 tbody tr:nth-child(2n) {
+    background-color: rgba(115, 167, 229, 0.22);
+}
+#table3 tbody tr td{
+    border-color: #000000;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+}
+
+#table3 tbody tr {
+    height: 25px;
+    border: 1px solid #f0fffa;
+}.toolbar{
+     height:25px;
+     padding:5px;
+     background: linear-gradient(to bottom, #F9F9F9 0, #efefef 100%);
+ }
